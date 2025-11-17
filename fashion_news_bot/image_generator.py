@@ -44,36 +44,33 @@ else:
 # ======================================
 
 def generate_fashion_image(article: Dict) -> Optional[str]:
-    """Generate and save an image for the given article using Imagen 3."""
-
     os.makedirs(settings.images_output_dir, exist_ok=True)
 
     if client is None:
         return None
 
-    # Prompt según estilo elegido
+    # Prompt según estilo
     prompt = (
-        "Editorial fashion photography, luxury magazine aesthetic, dramatic studio lighting, "
-        "premium fabrics, elegant composition, high fashion, glossy magazine look. "
-        if settings.writer_style == 'luxury'
-        else "Urban streetwear editorial photo, modern fashion, city textures, bold styling, "
-             "dynamic lighting, high quality, gritty but stylish. "
+        "High-end editorial fashion photo, luxury magazine style, dramatic lighting, "
+        "premium fabrics, elegant composition. "
+        if settings.writer_style == "luxury"
+        else "Urban streetwear fashion editorial photo, modern aesthetics, dynamic pose, "
+             "natural city lighting. "
     )
-
     prompt += (
-        "High resolution, professional look, no recognizable faces. "
-        "Inspired by: " + (article.get("title") or "fashion")
+        "High quality, no recognizable faces. Inspired by: " +
+        (article.get('title') or "fashion")
     )
 
     try:
-        logger.info("Generando imagen con Gemini Imagen 3…")
+        logger.info("Generando imagen con modelo imagegeneration@002…")
 
         response = client.models.generate_images(
-            model="imagen-3.0",
+            model="imagegeneration@002",
             prompt=prompt,
             config=types.GenerateImagesConfig(
                 number_of_images=1,
-                output_mime_type="image/jpeg"
+                output_mime_type="image/jpeg",
             ),
         )
 
@@ -83,19 +80,19 @@ def generate_fashion_image(article: Dict) -> Optional[str]:
         if hasattr(generated.image, "image_bytes"):
             img_bytes = generated.image.image_bytes
         else:
-            logger.error("El objeto generado no contiene image_bytes.")
+            logger.error("No se encontraron image_bytes en la respuesta")
             return None
 
         img = Image.open(BytesIO(img_bytes))
 
-        file_name = f"img_{article.get('hash', 'img')}.jpg"
+        file_name = f"img_{article.get('hash','img')}.jpg"
         file_path = os.path.join(settings.images_output_dir, file_name)
-        img.save(file_path, format="JPEG")
+        img.save(file_path, "JPEG")
 
         logger.info("Imagen guardada en %s", file_path)
         return file_path
 
     except Exception as e:
-        logger.error("Error al generar imagen con Gemini: %s", e)
+        logger.error("Error generando imagen: %s", e)
         return None
 
