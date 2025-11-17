@@ -3,3 +3,5 @@ python-dotenv
 feedparser
 openai>=1.0.0
 langdetect
+google-genai
+Pillow
