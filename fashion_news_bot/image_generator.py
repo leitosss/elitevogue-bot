@@ -44,54 +44,49 @@ else:
 # ======================================
 
 def generate_fashion_image(article: Dict) -> Optional[str]:
-    """Generate and save an image for the given article using Imagen 3.
+    """Generate and save an image for the given article using Imagen 3."""
 
-    Returns the path to the saved image or None if generation fails or
-    no API key is provided.
-    """
     os.makedirs(settings.images_output_dir, exist_ok=True)
 
     if client is None:
-        # Sin API key, no intentamos generar
         return None
 
     # Prompt según estilo elegido
     prompt = (
-        "Editorial fashion photography, luxury magazine style, dramatic lighting, "
-        "high-end wardrobe, premium textures, elegant composition. "
-        if settings.writer_style == "luxury"
-        else "Streetwear editorial photography, urban setting, fresh and modern aesthetics, "
-             "dynamic composition, natural light, stylish outfits. "
+        "Editorial fashion photography, luxury magazine aesthetic, dramatic studio lighting, "
+        "premium fabrics, elegant composition, high fashion, glossy magazine look. "
+        if settings.writer_style == 'luxury'
+        else "Urban streetwear editorial photo, modern fashion, city textures, bold styling, "
+             "dynamic lighting, high quality, gritty but stylish. "
     )
 
     prompt += (
-        "High quality, professional studio feel, no recognizable faces, can be conceptual: "
-        "runway silhouettes, fabrics in motion, accessories, or urban details depending on context. "
+        "High resolution, professional look, no recognizable faces. "
         "Inspired by: " + (article.get("title") or "fashion")
     )
 
     try:
-        logger.info("Generando imagen con Gemini / Imagen 3…")
+        logger.info("Generando imagen con Gemini Imagen 3…")
 
         response = client.models.generate_images(
-            model="imagen-3.0-generate-002",
+            model="imagen-3.0",
             prompt=prompt,
             config=types.GenerateImagesConfig(
                 number_of_images=1,
-                output_mime_type="image/jpeg",
+                output_mime_type="image/jpeg"
             ),
         )
 
-        # Tomamos la primera imagen generada
         generated = response.generated_images[0]
 
-        # Algunas versiones de la SDK devuelven image_bytes, otras un objeto PIL.
-        # Usamos la forma más general.
+        # Obtener bytes
         if hasattr(generated.image, "image_bytes"):
-            img = Image.open(BytesIO(generated.image.image_bytes))
+            img_bytes = generated.image.image_bytes
         else:
-            # En algunos ejemplos la imagen viene ya como PIL.Image
-            img = generated.image  # type: ignore
+            logger.error("El objeto generado no contiene image_bytes.")
+            return None
+
+        img = Image.open(BytesIO(img_bytes))
 
         file_name = f"img_{article.get('hash', 'img')}.jpg"
         file_path = os.path.join(settings.images_output_dir, file_name)
@@ -103,3 +98,4 @@ def generate_fashion_image(article: Dict) -> Optional[str]:
     except Exception as e:
         logger.error("Error al generar imagen con Gemini: %s", e)
         return None
+
