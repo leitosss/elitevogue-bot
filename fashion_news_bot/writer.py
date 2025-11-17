@@ -12,7 +12,8 @@ placeholder article to allow the rest of the pipeline to run.
 
 import logging
 from typing import Dict
-
+import re                     # 👈 nuevo
+import markdown  
 from openai import OpenAI
 from langdetect import detect, LangDetectException
 
@@ -50,7 +51,28 @@ STYLE_TEMPLATES = {
         "cierre motivador.\n"
     ),
 }
+def markdown_a_html_bonito(texto: str) -> str:
+    """
+    Convierte markdown a HTML con una estructura limpia y elegante.
+    """
+    # Opcional: subir un nivel los títulos ### a ## para que se vean más grandes
+    texto = re.sub(r"^###\s+", "## ", texto, flags=re.MULTILINE)
 
+    html = markdown.markdown(
+        texto,
+        extensions=["extra", "sane_lists"]
+    )
+
+    # Primer párrafo como "bajada" si querés algo más editorial
+    html = re.sub(
+        r"<p>(.*?)</p>",
+        r'<p class="elitevogue-lead">\1</p>',
+        html,
+        count=1
+    )
+
+    # Contenedor para poder estilizar fácil desde el theme
+    return f'<div class="elitevogue-article">{html}</div>'
 
 def _detect_language(text: str) -> str:
     """Detect the language of a piece of text using langdetect.
@@ -139,30 +161,38 @@ def generate_article_text(article: Dict) -> Dict:
     )
     raw_markdown = response.output[0].content[0].text
 
-    # Extract title and subtitle from markdown
+    # ============================
+    # Formateo bonito de salida
+    # ============================
+
+    # Extraer título y subtítulo desde el markdown
     magazine_title = article.get("title", "Artículo de moda")
     subtitle = ""
     lines = raw_markdown.strip().splitlines()
+
     if lines:
-        # first non-empty line starting with '#'
+        # primer encabezado como título
         for line in lines:
             if line.startswith("#"):
                 magazine_title = line.lstrip("# ").strip()
                 break
+
     for line in lines:
         if line.startswith("##"):
             subtitle = line.lstrip("# ").strip()
             break
 
-    # Generate meta description (first 160 chars of raw_markdown without markdown syntax)
-    # remove markdown headers and formatting roughly
-    import re
+    # Limpiar posibles restos de markdown en título/subtítulo
+    magazine_title = re.sub(r"[*_`#]", "", magazine_title).strip()
+    subtitle = re.sub(r"[*_`#]", "", subtitle).strip()
 
-    clean_text = re.sub(r'[#**/`]', ' ', raw_markdown)
+    # Meta description: texto plano sin signos de markdown
+    clean_text = re.sub(r"[#*_`]", " ", raw_markdown)
     clean_text = clean_text.replace("\n", " ")
     meta_description = clean_text[:155].strip() + "…"
 
-    body_html = raw_markdown.replace("\n\n", "<br><br>")
+    # Convertir el cuerpo a HTML bonito
+    body_html = markdown_a_html_bonito(raw_markdown)
 
     return {
         "magazine_title": magazine_title,
