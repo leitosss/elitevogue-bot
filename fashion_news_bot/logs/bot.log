@@ -1,0 +1,109 @@
+2025-11-16 19:46:40,349 - __main__ - INFO - ===== INICIO EJECUCIÓN BOT MODA =====
+2025-11-16 19:46:40,350 - fashion_news_bot.scraper - INFO - Solicitando noticias a NewsAPI…
+2025-11-16 19:46:40,921 - fashion_news_bot.scraper - INFO - NewsAPI devolvió 14 artículos
+2025-11-16 19:46:40,923 - fashion_news_bot.scraper - INFO - Leyendo RSS: https://wwd.com/custom-feed/fashion/
+2025-11-16 19:46:41,489 - fashion_news_bot.scraper - INFO - Leyendo RSS: https://ww.fashionnetwork.com/rss/collection
+2025-11-16 19:46:43,265 - fashion_news_bot.scraper - INFO - RSS total: 0 artículos
+2025-11-16 19:46:43,265 - fashion_news_bot.scraper - INFO - Artículos nuevos detectados: 14
+2025-11-16 19:46:43,265 - __main__ - INFO - Procesando artículo: Valve’s Steam Machine Returns: PC Gaming Meets Console Simplicity (Plus This Week’s Biggest Tech)
+2025-11-16 19:46:43,266 - __main__ - INFO - Clasificación: general
+2025-11-16 19:46:43,755 - fashion_news_bot.writer - INFO - Idioma detectado: en
+2025-11-16 19:46:43,755 - fashion_news_bot.writer - INFO - Llamando a OpenAI para generar texto editorial...
+2025-11-16 19:46:54,869 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/responses "HTTP/1.1 200 OK"
+2025-11-16 19:46:54,902 - fashion_news_bot.image_generator - INFO - Generando imagen con OpenAI…
+2025-11-16 19:46:55,640 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-11-16 19:46:55,641 - fashion_news_bot.image_generator - ERROR - Error al generar imagen: Error code: 400 - {'error': {'message': "Invalid value: '1024x576'. Supported values are: '1024x1024', '1024x1536', '1536x1024', and 'auto'.", 'type': 'invalid_request_error', 'param': 'size', 'code': 'invalid_value'}}
+2025-11-16 19:46:55,641 - fashion_news_bot.publisher - INFO - Creando post en WordPress…
+2025-11-16 19:46:56,981 - __main__ - ERROR - Error procesando artículo 'Valve’s Steam Machine Returns: PC Gaming Meets Console Simplicity (Plus This Week’s Biggest Tech)': 401 Client Error: Unauthorized for url: https://elitevogue.online/wp-json/wp/v2/posts
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Downloads\fashion_news_bot\fashion_news_bot\main.py", line 75, in run_once
+    post_id = wp.create_post(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\Usuario\Downloads\fashion_news_bot\fashion_news_bot\publisher.py", line 83, in create_post
+    resp.raise_for_status()
+  File "C:\Users\Usuario\Downloads\fashion_news_bot\.venv\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://elitevogue.online/wp-json/wp/v2/posts
+2025-11-16 19:46:56,984 - __main__ - INFO - Procesando artículo: Mack Hansen's hat trick spurs Ireland to a record 46-19 win over Australia
+2025-11-16 19:46:56,984 - __main__ - INFO - Clasificación: general
+2025-11-16 19:46:56,986 - fashion_news_bot.writer - INFO - Idioma detectado: en
+2025-11-16 19:46:56,987 - fashion_news_bot.writer - INFO - Llamando a OpenAI para generar texto editorial...
+2025-11-16 19:47:13,321 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/responses "HTTP/1.1 200 OK"
+2025-11-16 19:47:13,322 - fashion_news_bot.image_generator - INFO - Generando imagen con OpenAI…
+2025-11-16 19:47:13,650 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-11-16 19:47:13,651 - fashion_news_bot.image_generator - ERROR - Error al generar imagen: Error code: 400 - {'error': {'message': "Invalid value: '1024x576'. Supported values are: '1024x1024', '1024x1536', '1536x1024', and 'auto'.", 'type': 'invalid_request_error', 'param': 'size', 'code': 'invalid_value'}}
+2025-11-16 19:47:13,651 - fashion_news_bot.publisher - INFO - Creando post en WordPress…
+2025-11-16 19:47:14,692 - __main__ - ERROR - Error procesando artículo 'Mack Hansen's hat trick spurs Ireland to a record 46-19 win over Australia': 401 Client Error: Unauthorized for url: https://elitevogue.online/wp-json/wp/v2/posts
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Downloads\fashion_news_bot\fashion_news_bot\main.py", line 75, in run_once
+    post_id = wp.create_post(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\Usuario\Downloads\fashion_news_bot\fashion_news_bot\publisher.py", line 83, in create_post
+    resp.raise_for_status()
+  File "C:\Users\Usuario\Downloads\fashion_news_bot\.venv\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://elitevogue.online/wp-json/wp/v2/posts
+2025-11-16 19:47:14,693 - __main__ - INFO - Procesando artículo: Tandy could not watch Wales' winning kick
+2025-11-16 19:47:14,693 - __main__ - INFO - Clasificación: general
+2025-11-16 19:47:14,696 - fashion_news_bot.writer - INFO - Idioma detectado: en
+2025-11-16 19:47:14,696 - fashion_news_bot.writer - INFO - Llamando a OpenAI para generar texto editorial...
+2025-11-16 19:47:26,250 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/responses "HTTP/1.1 200 OK"
+2025-11-16 19:47:26,251 - fashion_news_bot.image_generator - INFO - Generando imagen con OpenAI…
+2025-11-16 19:47:26,628 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-11-16 19:47:26,628 - fashion_news_bot.image_generator - ERROR - Error al generar imagen: Error code: 400 - {'error': {'message': "Invalid value: '1024x576'. Supported values are: '1024x1024', '1024x1536', '1536x1024', and 'auto'.", 'type': 'invalid_request_error', 'param': 'size', 'code': 'invalid_value'}}
+2025-11-16 19:47:26,628 - fashion_news_bot.publisher - INFO - Creando post en WordPress…
+2025-11-16 19:47:27,591 - __main__ - ERROR - Error procesando artículo 'Tandy could not watch Wales' winning kick': 401 Client Error: Unauthorized for url: https://elitevogue.online/wp-json/wp/v2/posts
+Traceback (most recent call last):
+  File "C:\Users\Usuario\Downloads\fashion_news_bot\fashion_news_bot\main.py", line 75, in run_once
+    post_id = wp.create_post(
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\Usuario\Downloads\fashion_news_bot\fashion_news_bot\publisher.py", line 83, in create_post
+    resp.raise_for_status()
+  File "C:\Users\Usuario\Downloads\fashion_news_bot\.venv\Lib\site-packages\requests\models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://elitevogue.online/wp-json/wp/v2/posts
+2025-11-16 19:47:27,593 - __main__ - INFO - ===== FIN EJECUCIÓN BOT MODA =====
+2025-11-16 20:24:55,764 - __main__ - INFO - ===== INICIO EJECUCIÓN BOT MODA =====
+2025-11-16 20:24:55,771 - fashion_news_bot.scraper - INFO - Solicitando noticias a NewsAPI…
+2025-11-16 20:24:56,179 - fashion_news_bot.scraper - INFO - NewsAPI devolvió 14 artículos
+2025-11-16 20:24:56,180 - fashion_news_bot.scraper - INFO - Leyendo RSS: https://wwd.com/custom-feed/fashion/
+2025-11-16 20:24:56,756 - fashion_news_bot.scraper - INFO - Leyendo RSS: https://ww.fashionnetwork.com/rss/collection
+2025-11-16 20:24:58,535 - fashion_news_bot.scraper - INFO - RSS total: 0 artículos
+2025-11-16 20:24:58,536 - fashion_news_bot.scraper - INFO - Artículos nuevos detectados: 14
+2025-11-16 20:24:58,537 - __main__ - INFO - Procesando artículo: Anchorage Wolverines continue to make strides despite falling to Windigo in shootout thriller
+2025-11-16 20:24:58,537 - __main__ - INFO - Clasificación: general
+2025-11-16 20:24:59,009 - fashion_news_bot.writer - INFO - Idioma detectado: en
+2025-11-16 20:24:59,009 - fashion_news_bot.writer - INFO - Llamando a OpenAI para generar texto editorial...
+2025-11-16 20:25:10,208 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/responses "HTTP/1.1 200 OK"
+2025-11-16 20:25:10,241 - fashion_news_bot.image_generator - INFO - Generando imagen con OpenAI…
+2025-11-16 20:25:10,637 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-11-16 20:25:10,638 - fashion_news_bot.image_generator - ERROR - Error al generar imagen: Error code: 400 - {'error': {'message': 'Billing hard limit has been reached.', 'type': 'billing_limit_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}
+2025-11-16 20:25:10,639 - fashion_news_bot.publisher - INFO - Creando post en WordPress…
+2025-11-16 20:25:11,553 - fashion_news_bot.publisher - INFO - Post creado. ID: 60
+2025-11-16 20:25:11,553 - __main__ - INFO - Publicado post ID 60 para hash dbc1d260101e2e878dfe42e77933e7c8823e538d9840b25122ece3fe5201abcb
+2025-11-16 20:25:11,554 - fashion_news_bot.stats - INFO - Actualizadas estadísticas: source:Anchorage Daily News=1, category:general=1
+2025-11-16 20:25:11,555 - __main__ - INFO - Procesando artículo: Ireland shock Bosnia and Herzegovina
+2025-11-16 20:25:11,555 - __main__ - INFO - Clasificación: general
+2025-11-16 20:25:11,558 - fashion_news_bot.writer - INFO - Idioma detectado: en
+2025-11-16 20:25:11,558 - fashion_news_bot.writer - INFO - Llamando a OpenAI para generar texto editorial...
+2025-11-16 20:25:22,909 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/responses "HTTP/1.1 200 OK"
+2025-11-16 20:25:22,910 - fashion_news_bot.image_generator - INFO - Generando imagen con OpenAI…
+2025-11-16 20:25:23,399 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-11-16 20:25:23,399 - fashion_news_bot.image_generator - ERROR - Error al generar imagen: Error code: 400 - {'error': {'message': 'Billing hard limit has been reached.', 'type': 'billing_limit_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}
+2025-11-16 20:25:23,400 - fashion_news_bot.publisher - INFO - Creando post en WordPress…
+2025-11-16 20:25:24,270 - fashion_news_bot.publisher - INFO - Post creado. ID: 61
+2025-11-16 20:25:24,270 - __main__ - INFO - Publicado post ID 61 para hash 9e47117da006b6632e5fd1f25fe88bc374912c34aeefe196dff210acd19e04eb
+2025-11-16 20:25:24,277 - fashion_news_bot.stats - INFO - Actualizadas estadísticas: source:RTE=1, category:general=2
+2025-11-16 20:25:24,277 - __main__ - INFO - Procesando artículo: The adidas Taekwondo Mei Elite Is Ready For Its Mainline Debut
+2025-11-16 20:25:24,278 - __main__ - INFO - Clasificación: general
+2025-11-16 20:25:24,280 - fashion_news_bot.writer - INFO - Idioma detectado: en
+2025-11-16 20:25:24,280 - fashion_news_bot.writer - INFO - Llamando a OpenAI para generar texto editorial...
+2025-11-16 20:25:33,014 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/responses "HTTP/1.1 200 OK"
+2025-11-16 20:25:33,015 - fashion_news_bot.image_generator - INFO - Generando imagen con OpenAI…
+2025-11-16 20:25:33,365 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-11-16 20:25:33,365 - fashion_news_bot.image_generator - ERROR - Error al generar imagen: Error code: 400 - {'error': {'message': 'Billing hard limit has been reached.', 'type': 'billing_limit_user_error', 'param': None, 'code': 'billing_hard_limit_reached'}}
+2025-11-16 20:25:33,366 - fashion_news_bot.publisher - INFO - Creando post en WordPress…
+2025-11-16 20:25:34,139 - fashion_news_bot.publisher - INFO - Post creado. ID: 62
+2025-11-16 20:25:34,139 - __main__ - INFO - Publicado post ID 62 para hash 9e9bfebc7edae8e11d4f8a80a1663f98ef6e71c355b623b24dfbeed07506c5b0
+2025-11-16 20:25:34,146 - fashion_news_bot.stats - INFO - Actualizadas estadísticas: source:Sneaker News=1, category:general=3
+2025-11-16 20:25:34,146 - __main__ - INFO - ===== FIN EJECUCIÓN BOT MODA =====
