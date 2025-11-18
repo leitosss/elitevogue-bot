@@ -1,36 +1,64 @@
 """
-Simple keyword‑based classifier for fashion articles.
+Clasificador editorial para EliteVogue.
 
-This module provides a function to classify an article into broad
-categories based on its textual content.  It is a basic heuristic
-approach; for more sophisticated classification consider using a
-machine‑learning model or external API.
+Clasifica artículos según su contenido en categorías profesionales:
+portadas, moda, tendencias, belleza, editorial, lifestyle,
+cultura_visual, entrevistas.
 """
 
 from typing import Dict
 
 
 def classify_article(article: Dict) -> str:
-    """Classify an article into a high‑level category.
+    """Devuelve una categoría editorial basada en keywords."""
 
-    The classification is based on presence of keywords in the article's
-    title, description or content.  Returns one of:
-    ``pasarela`` (runway), ``street`` (streetwear), ``belleza``
-    (beauty), ``negocio`` (business) or ``general``.
-    """
     text = " ".join([
         article.get("title") or "",
         article.get("description") or "",
         article.get("content") or "",
     ]).lower()
+
     categories = {
-        "pasarela": ["runway", "pasarela", "fashion show", "catwalk"],
-        "street": ["street style", "streetwear", "street fashion", "urbano"],
-        "belleza": ["beauty", "cosmetics", "maquillaje", "fragancia", "perfume", "skincare"],
-        "negocio": ["business", "negocio", "retail", "industry", "industria", "empresa", "mercado"],
+        "portadas": [
+            "portada", "cover", "editorial photo", "front page", "producción",
+            "modelo destacada", "shoot", "sesión fotográfica"
+        ],
+        "moda": [
+            "moda", "fashion", "outfit", "vestido", "colección", "desfile",
+            "runway", "silhouette", "estilismo", "look", "prenda"
+        ],
+        "tendencias": [
+            "tendencia", "trend", "temporada", "color del año", "pronóstico",
+            "futuro de la moda", "trend report", "forecast", "estará de moda"
+        ],
+        "belleza": [
+            "maquillaje", "makeup", "skincare", "belleza", "cosmética",
+            "fragancia", "perfume", "piel", "labial", "cuidado"
+        ],
+        "editorial": [
+            "reflexión", "poético", "crónica", "análisis profundo",
+            "ensayo", "narrativa", "metáfora", "estética conceptual",
+            "observación", "sensibilidad"
+        ],
+        "lifestyle": [
+            "lujo", "viaje", "lifestyle", "experiencia", "inspiración",
+            "estilo de vida", "wellness", "vivir", "cultura moderna"
+        ],
+        "cultura_visual": [
+            "visual", "estética", "fotografía", "imagen", "simbolismo",
+            "arte", "composición", "color", "sombra", "contraste"
+        ],
+        "entrevistas": [
+            "entrevista", "dialogo", "conversación", "perfil",
+            "historia de vida", "modelo", "diseñador", "creador",
+            "hablamos con", "nos cuenta"
+        ],
     }
+
     for category, keywords in categories.items():
         for kw in keywords:
             if kw in text:
                 return category
-    return "general"
+
+    # Si no coincide nada:
+    return "moda"
