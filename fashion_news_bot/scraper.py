@@ -44,16 +44,27 @@ def fetch_from_newsapi() -> List[Dict]:
         "sortBy": "publishedAt",
         "language": "en",
         "pageSize": settings.max_articles_per_run * 5,
+        "apiKey": settings.newsapi_key,   # <-- CLAVE: usar apiKey en query
     }
-    headers = {"Authorization": settings.newsapi_key}
+    # También podrías usar header X-Api-Key en vez de apiKey en params:
+    # headers = {"X-Api-Key": settings.newsapi_key}
     logger.info("Solicitando noticias a NewsAPI…")
     try:
-        resp = requests.get(url, params=params, headers=headers, timeout=30)
-        resp.raise_for_status()
+        # Si usás apiKey en params, no hace falta headers
+        resp = requests.get(url, params=params, timeout=30)
+        if not resp.ok:
+            # Logueamos el cuerpo para ver el mensaje real de NewsAPI
+            logger.error(
+                "NewsAPI devolvió %s: %s",
+                resp.status_code,
+                resp.text[:500],
+            )
+            return []
+        data = resp.json()
     except Exception as e:
-        logger.error("Error al consultar NewsAPI: %s", e)
+        logger.exception("Error al consultar NewsAPI: %s", e)
         return []
-    data = resp.json()
+
     articles = []
     for a in data.get("articles", []):
         articles.append({
